@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bomberman</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>💣</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <script src="js/game.js" defer type="module"></script>
+</head>
+
+<body>
+    <dialog id="pause-menu">
+        <audio id="pauseSound">
+            <source src="assets/sounds/Pause.wav" type="audio/mp3">
+        </audio>
+        <div class="content">
+            <h2>Game Paused</h2>
+            <button id="resume">Resume</button>
+            <button id="restart">Restart</button>
+        </div>
+    </dialog>
+    <dialog id="game-over-menu">
+        <div class="content">
+            <h2>Game Over</h2>
+            <p class="message"></p>
+            <button>Restart</button>
+        </div>
+    </dialog>
+    <div id="game-board"></div>
+    <audio id="inGame" loop>
+        <source src="assets/sounds/inGame.mp3" type="audio/mp3">
+    </audio>
+    <audio id="explodeSound">
+        <source src="assets/sounds/Bomb Explodes.wav" type="audio/mp3">
+    </audio>
+    <audio id="playerDies">
+        <source src="assets/sounds/Bomberman Dies.wav" type="audio/mp3">
+    </audio>
+    <audio id="powerups">
+        <source src="assets/sounds/powerups.wav" type="audio/mp3">
+    </audio>
+    <audio id="victorySound">
+        <source src="assets/sounds/Stage Clear.wav" type="audio/mp3">
+    </audio>
+    <div class="how-to-play" id="howToPlayBox">
+        <h2>How to play</h2>
+        <p>Welcome to Bomberman!</p>
+        <p>Kill all enemies using:</p>
+        <div><span><img src="fonts/fleches-clavier.png" alt=""> = MOVE</span></div>
+        <div><span><img src="fonts/space.png" alt=""> = PUSH BOMB</span></div>
+        <div><span><img src="fonts/pngegg.png" alt=""> = PAUSE / RESUME</span></div>
+        <div><span>Take <b>X</b> to multiply BOMB</span></div>
+        <div><span>Take <b>S</b> to switch on SUPER BOMB</span></div>
+        <div><span>Take <b>M</b> to switch on MANUAL BOMB</span></div>
+        <h3>Game Details</h3>
+        <p>You have 3 lives.</p>
+        <p>explosion will lead to immediate death!</p>
+    </div>
+</body>
+
+</html>

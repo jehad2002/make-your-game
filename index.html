@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bomberman</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>💣</text></svg>">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="start-screen" class="screen">
+        <audio id="mainMenuAudio" loop>
+            <source src="assets/sounds/main-menu.mp3" type="audio/mp3">
+        </audio>
+        <audio id="playSound">
+            <source src="assets/sounds/Title Screen Select.wav" type="audio/mp3">
+        </audio>
+        <h1>BomberMan</h1>
+        <a href="./game.html" id="start">
+            <img src="fonts/Bomberman.png" alt="">
+            <span class="now">now!</span>
+            <span class="play">play</span>
+        </a>
+    </div>
+    <script>
+        const mainMenuAudio = document.getElementById('mainMenuAudio');
+        document.addEventListener("DOMContentLoaded", () => {
+            mainMenuAudio.volume = 0.5;
+            mainMenuAudio.play().catch(error => {
+                console.error("Erreur de lecture audio:", error);
+            });
+        });
+    </script>
+</body>
+
+</html>

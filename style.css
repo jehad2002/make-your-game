@@ -1,0 +1,445 @@
+/* Add bloomberg font family */
+@font-face {
+    font-family: Blomberg;
+    src: url(./fonts/Blomberg.otf);
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-image: url("fonts/main.jpg");
+    background-size: cover;
+}
+
+h1 {
+    font-family: Blomberg;
+    font-size: 10rem;
+    letter-spacing: .125rem;
+}
+
+#game-over-menu,
+#pause-menu {
+    position: fixed;
+    background-color: transparent;
+    border: none;
+}
+
+#game-over-menu h2,
+#pause-menu h2 {
+    font-family: Blomberg;
+    font-size: 5rem;
+    letter-spacing: .125rem;
+}
+
+#game-over-menu p,
+#pause-menu p {
+    font-size: 2.5rem;
+}
+
+#game-over-menu .content,
+#pause-menu .content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: .5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    z-index: 100;
+    width: 50vw;
+}
+
+#game-over-menu::before,
+#pause-menu::before {
+    content: "";
+    display: block;
+    position: fixed;
+    z-index: -10;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000d3;
+}
+
+#game-over-menu button,
+#pause-menu button {
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 2rem;
+    transform: skew(21deg);
+    letter-spacing: .125rem;
+    font-family: Blomberg;
+    border-radius: 5px;
+    transition: all .25s ease-in-out;
+}
+
+#game-over-menu button:hover,
+#pause-menu button:hover {
+    transform: skew(0deg);
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.hud {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    z-index: 5;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+
+}
+
+.hud-element {
+    letter-spacing: .125rem;
+    font-family: Blomberg;
+    font-size: 1.5rem;
+    margin: 5px 0;
+}
+
+#game-board {
+    background-color: #219e21;
+    /* background-image: url(./img/grass.png); */
+    width: 100vmin;
+    height: 100vmin;
+    display: grid;
+    grid-template-rows: repeat(16, 1fr);
+    grid-template-columns: repeat(16, 1fr);
+}
+
+.player {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 2.5px;
+    /* background-color: #9900ff;
+    border: .25vmin solid black; */
+    border-radius: 50%;
+    z-index: 5;
+}
+
+.player::after {
+    content: "😁";
+}
+
+@keyframes movePlayer {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(var(--translate-x), var(--translate-y));
+    }
+}
+
+/* 
+.enemy {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    margin: 5px;
+    border: .25vmin solid black;
+    border-radius: 50% 50% 0 0;
+    z-index: 10;
+} */
+
+.enemy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.enemy::after {
+    content: "👻";
+}
+
+/* .enemy::after,
+.enemy::before {
+    content: "";
+    background-color: black;
+    position: absolute;
+    top: 10px;
+    display: block;
+    border-radius: 100%;
+    font-size: 2rem;
+    width: 7px;
+    height: 7px;
+}
+
+.enemy::before {
+    right: 6px;
+}
+
+.enemy::after {
+    left: 6px;
+} */
+
+.enemy {
+    animation: none;
+    animation-fill-mode: forwards;
+    animation-duration: 0.125s;
+}
+
+.bomb {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    z-index: 5;
+    animation: bomb 1s ease-in-out infinite;
+}
+
+.bomb::after {
+    content: "💣";
+}
+
+.explode {
+    animation: wiggle .25s ease-in-out forwards;
+}
+
+.blast {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    border-radius: 2.5rem;
+    filter: blur(10px);
+    border: 5px solid red;
+    background-image: radial-gradient(rgba(255, 69, 0, 0.95) 0%, rgba(0, 60, 255, 0.95) 30%, rgba(255, 0, 64, 0.95) 40%, rgba(0, 255, 106, 0.95) 50%, rgba(255, 136, 0, 0.95) 74%);
+    transition: all .25s ease-in-out;
+}
+
+/* Bomb animation */
+@keyframes bomb {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(.75);
+    }
+}
+
+@keyframes explode {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.25);
+        opacity: 0;
+    }
+}
+
+@keyframes wiggle {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    80% {
+        transform: rotate(-5deg);
+    }
+
+    85% {
+        transform: rotate(5deg);
+        background-color: #661212;
+    }
+
+    95% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+        background-color: #000;
+    }
+}
+
+@keyframes rainbow {
+    0% {
+        color: black;
+    }
+
+    80% {
+        color: blue;
+    }
+
+    85% {
+        color: red;
+    }
+
+    95% {
+        color: yellow;
+    }
+
+    100% {
+        color: green;
+    }
+}
+
+.wall,
+.block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 2.5px 2.5px 5px #7c9270f0,
+        -2.5px -2.5px 5px #c4cfc3eb;
+    margin: 2.5px;
+    border: .25vmin solid #ffffff;
+    border-radius: 1vmin;
+}
+
+.block {
+    font-size: 1.5rem;
+    /* background-color: #0b0b8a; */
+}
+
+.block::after {
+    content: "🪨";
+}
+
+.wall {
+    font-size: 1.5rem;
+    /* background-color: #3e3b3b; */
+}
+
+.wall::after {
+    content: "🧱";
+}
+
+.power {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    font-size: 1.7rem;
+    border-radius: 10px;
+    box-shadow: 2.5px 2.5px 5px #7c9270f0,
+        -2.5px -2.5px 5px #c4cfc3eb;
+    margin: 2.5px;
+    border: .25vmin solid #ffffff;
+    animation: rainbow .5s ease-in-out infinite;
+}
+
+#start-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50vw;
+    flex-direction: column;
+    transform: translateY(-5vw);
+}
+
+#start {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 20px;
+    color: white;
+    text-shadow: 2px 2px rgb(116, 116, 116);
+    text-transform: uppercase;
+    border: solid 2px black;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-size: 50px;
+    background-color: rgba(37, 37, 37, 0.5);
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .5s ease;
+}
+
+#start:active {
+    transform: scale(.9);
+    transition: all 100ms ease;
+}
+
+#start img {
+    transition: all .5s ease;
+    z-index: 2;
+}
+
+.play {
+    transition: all .5s ease;
+    transition-delay: 300ms;
+}
+
+#start:hover img {
+    transform: scale(3) translate(50%);
+}
+
+.now {
+    position: absolute;
+    left: 0;
+    transform: translateX(-100%);
+    transition: all .5s ease;
+    z-index: 2;
+}
+
+#start:hover .now {
+    transform: translateX(10px);
+    transition-delay: 300ms;
+}
+
+#start:hover .play {
+    transform: translateX(200%);
+    transition-delay: 300ms;
+}
+
+.how-to-play {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    z-index: 5;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+b {
+    color: green;
+}
+
+.how-to-play div {
+    margin-bottom: 10px;
+    /* Ajoute un espace de 10 pixels en bas de chaque div */
+}
+
+.how-to-play img {
+    width: 50px;
+    height: 30px;
+}
